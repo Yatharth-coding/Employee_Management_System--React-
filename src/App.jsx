@@ -12,15 +12,17 @@ const App = () => {
   const [loggedInUserData , setLoggedInUserData] = useState(null)
   const authData = useContext(AuthContext);
 
-  // useEffect(()=>{
 
-  //   if(authData){
-  //     const loggedInUser = localStorage.getItem("loggedInUser")
-  //     if(loggedInUser){
-  //       setUser(loggedInUser.role)
-  //     }
-  //   }
-  // } ,[authData])
+
+  useEffect(()=>{
+    const loggedInUser = localStorage.getItem('loggedInUser')
+
+    if(loggedInUser){
+      const userData = JSON.parse(loggedInUser) ;
+      setUser(userData.role) ;
+      setLoggedInUserData(userData.data)
+    }
+  },[])
 
 
   const handleLogin = (email , password)=>{
@@ -29,17 +31,18 @@ const App = () => {
       localStorage.setItem('loggedInUser' , JSON.stringify({role : 'admin'}))
     }
     else if(authData ){
+
       const employee = authData.employees.find((e)=>email == e.email && e.password == password) ;
       if(employee){
         setUser('user')
         setLoggedInUserData(employee)
         
-        localStorage.setItem('loggedInUser' , JSON.stringify({role : 'user'}))
+        localStorage.setItem('loggedInUser' , JSON.stringify({role : 'user' , data  : employee}))
       }
 
-    }
-    else{
-      alert('Invalid Credentials');
+      else{
+        alert('Invalid Credentials');
+      }
     }
   }
 
@@ -47,7 +50,7 @@ const App = () => {
   return (
     <div className='bg-[#1c1c1c]'>
       {!user ? <Login handleLogin={handleLogin}/> : ' '}
-      {user=='admin' ? <AdminDashboard /> : ( user=='user' ? <EmployeeDashboard data={loggedInUserData}/> : null)}
+      {user=='admin' ? <AdminDashboard data={loggedInUserData}/> : ( user=='user' ? <EmployeeDashboard data={loggedInUserData}/> : null)}
       
 
     </div>

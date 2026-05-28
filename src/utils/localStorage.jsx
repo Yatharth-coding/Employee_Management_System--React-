@@ -60,6 +60,36 @@ const employees = [
         "newTask": true,
         "completed": false,
         "failed": false,
+        "taskTitle": "Write Documentation",
+        "taskDescription": "Prepare project documentation.",
+        "taskDate": "2026-05-26",
+        "category": "Documentation"
+      },
+      {
+        "active": true,
+        "newTask": false,
+        "completed": false,
+        "failed": false,
+        "taskTitle": "Testing Module",
+        "taskDescription": "Perform unit testing on modules.",
+        "taskDate": "2026-05-28",
+        "category": "Testing"
+      },
+      {
+        "active": false,
+        "newTask": false,
+        "completed": true,
+        "failed": false,
+        "taskTitle": "Fix CSS Issues",
+        "taskDescription": "Resolve UI alignment problems.",
+        "taskDate": "2026-05-21",
+        "category": "Frontend"
+      },
+      {
+        "active": true,
+        "newTask": true,
+        "completed": false,
+        "failed": false,
         "taskTitle": "API Integration",
         "taskDescription": "Integrate payment gateway API.",
         "taskDate": "2026-05-27",
