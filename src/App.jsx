@@ -32,7 +32,9 @@ const App = () => {
     }
     else if(authData ){
 
-      const employee = authData.employees.find((e)=>email == e.email && e.password == password) ;
+      const employee = authData?.employees?.find(
+  (e) => email === e.email && password === e.password
+);
       if(employee){
         setUser('user')
         setLoggedInUserData(employee)
@@ -50,7 +52,7 @@ const App = () => {
   return (
     <div className='bg-[#1c1c1c]'>
       {!user ? <Login handleLogin={handleLogin}/> : ' '}
-      {user=='admin' ? <AdminDashboard data={loggedInUserData}/> : ( user=='user' ? <EmployeeDashboard data={loggedInUserData}/> : null)}
+      {user=='admin' ? <AdminDashboard changeUser = {setUser}/> : ( user=='user' ? <EmployeeDashboard changeUser = {setUser} data={loggedInUserData}/> : null)}
       
 
     </div>
