@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { createContext, useState } from 'react'
+import { getLocalStorage } from '../../utils/localStorage';
+import { AuthContext } from '../../context/AuthProvider';
 
 const CreateTask = () => {
 
@@ -8,10 +10,25 @@ const CreateTask = () => {
     const [taskCategory , setTaskCategory] = useState('');
     const [taskDescription , setTaskDescription] = useState('');
 
+    const [createTask , setCreateTask] = useState({})
+    
+
     const submitHandler = ((e)=>{
         e.preventDefault();
-        console.log(taskTitle , taskDate , taskAssign , taskCategory , taskDescription) ; 
+        const data = JSON.parse(localStorage.getItem('employees')) ;
+        const newTask = {taskTitle , taskDate , taskAssign , taskCategory , taskDescription , active : false , newTask : true , failed : false , completed : false} ;
+        data.forEach((elem)=>{
+            if(elem.firstName == taskAssign){
+                elem.tasks.push(newTask);
+                elem.taskCounts.newTask = elem.taskCounts.newTask+1;
+            }
+            
 
+        })
+        localStorage.setItem('employees' , JSON.stringify(data))
+        console.log(data)
+
+        
     })
 
 
